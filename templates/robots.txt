@@ -5,5 +5,7 @@ Disallow: /login/
 Disallow: /logout/
 Disallow: /purchasedtemplates/
 Disallow: /purchasesummary/
+Disallow: /termsandcondition/
+Disallow: /privacypolicy/
 Allow: /
 Sitemap: https://www.spellsoft.com.np/sitemap.xml
