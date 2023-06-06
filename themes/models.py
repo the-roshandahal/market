@@ -111,10 +111,18 @@ class Testimonial(models.Model):
         return self.name
 
 class CompanySetup(models.Model):
-    logo = models.ImageField(upload_to="company_images/")
+    data_set = models.CharField(max_length=100)
+    header_logo = models.ImageField(upload_to="company_images/")
     email = models.EmailField()
     contact = models.IntegerField()
     address = models.CharField(max_length=1000)
     facebook_url = models.URLField(null=True, blank=True)
     instagram_url = models.URLField(null=True, blank=True)
     linkedin_url = models.URLField(null=True, blank=True)
+    tiktok_url = models.URLField(null=True, blank=True)
+    twitter_url = models.URLField(null=True, blank=True)
+    youtube_url = models.URLField(null=True, blank=True)
+    footer_logo = models.ImageField(upload_to="company_images/",null=True, blank=True)
+
+    def __str__(self):
+        return self.data_set
