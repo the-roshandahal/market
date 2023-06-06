@@ -1,0 +1,204 @@
+{% load static %}
+{% include 'nav.html' %}
+{% include 'meta/about_meta.html' %}
+{% include 'header.html' %}
+<main>
+
+    <!-- bg shape area start -->
+    <div class="bg-shape">
+       <img src="{% static 'assets/img/shape/shape-1.png' %}" alt="spellsoft">
+    </div>
+    <!-- bg shape area end -->
+
+
+    <!-- about area start -->
+    <section class="about__area pt-100">
+      <div class="container">
+         <div class="row">
+           
+         </div>
+      </div>
+
+       <div class="container">
+          <div class="row">
+            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+               <div class="hero__content">
+                 <h1 class="hero__title">
+                   <span>We're enabling<br></span>
+                   Everyone to create their own website.
+                 </h1>
+               </div>
+             </div>
+             <div class="col-xxl-10 offset-xxl-1 col-xl-10 offset-xl-1">
+                <div class="about__wrapper">
+                   <div class="about__thumb w-img wow fadeInUp" data-wow-delay=".3s">
+                      <img src="{% static 'assets/img/about/about.jpg' %}" alt="spellsoft">
+                   </div>
+                   <div class="about__count pt-50 pb-15 wow fadeInUp" data-wow-delay=".5s">
+                      <div class="row">
+                         <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4">
+                            <div class="about__count-item text-center launche mb-30">
+                               <p>LAUNCHED IN</p>
+                               <h4><span class="counter">2020</span></h4>
+                            </div>
+                         </div>
+                         <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4">
+                            <div class="about__count-item text-center community mb-30">
+                               <p>Clients</p>
+                               <h4><span class="counter">13,00</span>+</h4>
+                            </div>
+                         </div>
+                         <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4">
+                            <div class="about__count-item text-center mission mb-30">
+                               <p>Satisfaction</p>
+                               <h4><span class="counter">99.9</span>%</h4>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="about__content">
+                      <p class="about__text">We understand that building a website can be a daunting task, especially if you're not a web developer. That's why we offer user-friendly templates that are simple to set up and customize. Whether you're a small business owner looking to create a professional website, or a designer in need of a portfolio template, we've got you covered.<br>All of our templates are responsive, meaning they'll look great on any device, from a desktop computer to a smartphone.</p>
+                      <p class="about__sub-text">Our templates are all professionally designed and easy to customize to match your brand and style. </p>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- about area end -->
+
+    <section class="faq__area grey-bg-2 pt-105 pb-125">
+      <div class="container">
+         <div class="row">
+            <div class="col-xxl-6 offset-xxl-3 col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
+               <div class="section__title-wrapper text-center mb-65">
+                  <h2 class="section__title">Frequently Asked Questions</h2>
+               </div>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-9">
+               <div class="faq__tab-content wow fadeInRight" data-wow-delay=".7s" style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInRight;">
+                  <div class="tab-content" id="faqTabContent">
+                     <div class="tab-pane fade active show" id="sale" role="tabpanel" aria-labelledby="sale-tab">
+                        <div class="accordion" id="sale-accordion">
+                           <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingOne">
+                                 {% for faq in faq %}
+                                 <button class="accordion-button {% if forloop.first %} {% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{faq.id}}" aria-expanded="true" aria-controls="collapseOne{{faq.id}}">
+                                    {{faq.question}}
+                                 </button>
+                                 <div id="collapseOne{{faq.id}}" class="accordion-collapse collapse {% if forloop.first %} show{% endif %}" aria-labelledby="headingOne" data-bs-parent="#sale-accordion">
+                                    
+                                    <div class="accordion-body">
+                                       <p>{{faq.answer}}</p>
+                                    </div>
+                           
+                                 </div>
+                                 {% endfor %}
+                              </h2>
+                              
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+    <!-- brand area start -->
+
+    <div class="brand__area pb-65 pt-80">
+      <div class="container">
+         
+
+
+    <div class="brand__area pb-65 pt-80">
+       <div class="container">
+          <div class="row">
+             <div class="col-xxl-12">
+                <div class="brand__slider owl-carousel">
+                  {% for partner in partner %}
+                   <div class="brand__thumb">
+                      <a href=""><img src="{{partner.logo.url}}" alt="{{partner.name}}" style="height:50px; width:110px;"></a>
+                   </div>
+                   {% endfor %}
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <!-- brand area end -->
+
+<!-- testimonial area start -->
+<div class="testimonial__area pt-50 pb-115 fix">
+   <div class="container">
+     <div class="testimonial__inner p-relative pb-110">
+       <div class="testimonial__bg p-absolute">
+         <img src="{% static 'assets/img/bg/testimonial-bg.png' %}" alt="spellsoft" />
+       </div>
+       <div class="row">
+         <div class="col-xxl-12">
+           <div
+             class="testimonial__slider owl-carousel wow fadeInUp"
+             data-wow-delay=".5s"
+           >
+             {% for testimonial in testimonial %}
+             <div class="testimonial__item white-bg">
+               <div class="testimonial__person d-flex mb-20">
+                 <div class="testimonial__avater">
+                   <img src="{{testimonial.image.url}}" alt="spellsoft" />
+                 </div>
+                 <div class="testimonial__info ml-15">
+                   <h5>{{testimonial.name}}</h5>
+                   <span>{{testimonial.company_name}}</span>
+                 </div>
+               </div>
+               <div class="testimonial__text">
+                 <p>{{testimonial.testimonial}}</p>
+               </div>
+             </div>
+             {% endfor %}
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!-- testimonial area end -->
+
+   
+
+    <!-- subscribe area start -->
+    <section class="subscribe__area p-relative pt-100 pb-110" data-background="{% static 'assets/img/bg/subscribe-bg.jpg' %}">
+       <div class="subscribe__icon">
+          <img class="ps" src="{% static 'assets/img/icon/subscribe/ps.png' %}" alt="spellsoft">
+          <img class="wp" src="{% static 'assets/img/icon/subscribe/wp.png' %}" alt="spellsoft">
+          <img class="html" src="{% static 'assets/img/icon/subscribe/html.png' %}" alt="spellsoft">
+          <img class="f" src="{% static 'assets/img/icon/subscribe/f.png' %}" alt="spellsoft">
+          <img class="man" src="{% static 'assets/img/icon/subscribe/man.png' %}" alt="spellsoft">
+       </div>
+       <div class="container">
+          <div class="row">
+             <div class="col-xxl-12">
+                <div class="subscribe__content text-center wow fadeInUp" data-wow-delay=".3s">
+                   <h3 class="subscribe__title">Have a project? <br> Create your website now.</h3>
+                   <p>Try our any product for FREE!</p>
+                   <div class="subscribe__form wow fadeInUp" data-wow-delay=".5s">
+                      <form action="#">
+                         <input type="email" placeholder="Email Address">
+                         <button type="submit" class="m-btn m-btn-black"><span></span> subscribe </button>
+                      </form>
+                      <p>Join 20,000+ other creators in our Spell Market community.</p>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- subscribe area end --> 
+ </main>
+ {% include 'footer.html' %}

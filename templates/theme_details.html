@@ -1,0 +1,214 @@
+{% load static %}
+{% include 'nav.html' %}
+{% include 'meta/themes_meta.html' %}
+{% include 'header.html' %}
+
+<main>
+
+    <!-- bg shape area start -->
+    <div class="bg-shape">
+       <img src="{% static 'assets/img/shape/shape-1.png' %}" alt="spellsoft">
+    </div>
+    <!-- bg shape area end -->
+
+    <!-- page title area -->
+    <section class="page__title-area  pt-85">
+       <div class="container">
+          <div class="row">
+             <div class="col-xxl-12">
+                <div class="page__title-content mb-50">
+                   <h2 class="page__title">{{theme_data.name}}</h2>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- page title end -->
+
+    <!-- product area start -->
+    <section class="product__area pb-115">
+       <div class="container">
+          <div class="row">
+             <div class="col-xxl-8 col-xl-8 col-lg-8">
+                  <span class="about__sub-title">{{theme_data.category}}</span>
+                   <h1 class="about__title">{{theme_data.template_name}}</h1>
+                <div class="product__wrapper">
+                   <div class="product__details-thumb w-img mb-30">
+                      <img src="{{theme_data.template_image.url}}" alt="product-details">
+                   </div>
+                   <div class="product__details-content">
+                      <div class="product__tab mb-40">
+                         <ul class="nav nav-tabs" id="proTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                               <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">Overview</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                               <button class="nav-link" id="support-tab" data-bs-toggle="tab" data-bs-target="#support" type="button" role="tab" aria-controls="support" aria-selected="false">Reviews</button>
+                            </li>
+                         </ul>                                  
+                      </div>
+                      <div class="product__tab-content">
+                         <div class="tab-content" id="proTabContent">
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                               <div class="product__overview">
+                                  <h3 class="product__ofverview-title">Template Details</h3>
+                                  <p>{{theme_data.template_details|safe}}</p>
+                                  <div class="product__features mt-40">
+                                     <h3 class="product__overview-title">Template Features:</h3>
+                                     <p>{{theme_data.template_features|safe}}</p>
+                                  </div>
+                                  <div class="product__features">
+                                     <h3 class="product__overview-title">Design Layout</h3>
+                                     <p>{{theme_data.template_layout|safe}}</p>
+                                  </div>
+                                  <div class="product__social m-social grey-bg-2">
+                                     <h4 class="product__social-title">Follow us</h4>
+                                     <ul>
+                                        <li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="#" class="pin"><i class="fab fa-pinterest-p"></i></a></li>
+                                        <li><a href="#" class="link"><i class="fab fa-linkedin-in"></i></a></li>
+                                     </ul>
+                                  </div>
+                               </div>
+                            </div>
+                            <div class="tab-pane fade" id="support" role="tabpanel" aria-labelledby="support-tab">
+                               <div class="product__support">
+                                  <div class="latest-comments mb-55">
+                                    
+                                     <ul>
+                                       {% if comments %}
+                                       {% for comments in comments %}
+                                        <li>
+                                           <div class="comments-box grey-bg-2">
+                                              <div class="comments-info d-flex">
+                                                    <div class="comments-avatar mr-15">
+                                                          <img src="{% static 'user.png' %}" alt="spellsoft">
+                                                    </div>
+                                                    <div class="avatar-name">
+                                                       <h5>{{comments.user.username}}</h5>
+                                                       {% comment %} <span class="post-meta">Author</span> {% endcomment %}
+                                                    </div>
+                                              </div>
+                                              <div class="comments-text ml-65">
+                                                    <p>{{comments.comment}}</p>
+                                             </div>
+                                           </div>
+                                        </li>
+                                        {% endfor %}
+                                        {% else %}
+                                        <li>
+                                          <div class="comments-box grey-bg-2">
+                                             
+                                             <div class="comments-text">
+                                                   <p>No Reviews Yet</p>
+                                            </div>
+                                          </div>
+                                       </li>
+                                     {% endif %}
+                                     </ul>
+                                     
+                                  </div>
+                                  <div class="post-comment-form wow fadeInUp" data-wow-delay=".2s">
+                                        <h4 class="post-comment-title mb-25">Add a comment</h4>
+                                        <form action="{% url 'comment' id=theme_data.id %}" method = "POST">
+                                          {% csrf_token %}
+                                           <div class="post-comment-inner">
+                                              <div class="row">
+                                                  <div class="col-xl-12">
+                                                      <div class="post-input d-sm-flex align-items-center mb-10">
+                                                          <textarea placeholder="Comment for the author..." name="comment"></textarea>
+                                                          <button type="submit" class="m-btn m-btn-4"> <span></span> Post Comment</button>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                           </div>
+                                        </form>
+                                    </div>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+             <div class="col-xxl-4 col-xl-4 col-lg-4">
+                <div class="product__details-sidebar ml-30">
+                   <div class="product__proprietor white-bg mb-30">
+                      <div class="product__proprietor-head mb-25">
+                         <div class="product__prorietor-info mb-20 d-flex justify-content-between">
+                            <div class="product__proprietor-avater d-flex align-items-center">
+                               
+                               <div class="product__proprietor-price">
+                               <span class="d-flex align-items-start"><span>Rs.</span>{{theme_data.template_price}}</span>
+                            </div>
+                            </div>
+                            
+                         </div>
+                      </div>
+                      <div class="product__proprietor-body fix">
+                         <ul class="mb-10 fix">
+                            <li>
+                               <h6>Downloads:</h6>
+                               <span>44</span>
+                            </li>
+                            <li>
+                               <h6>Released On:</h6>
+                               <span>{{theme_data.created.date}}</span>
+                            </li>
+                            <li>
+                               <h6>Version:</h6>
+                               <span>{{theme_data.version}}</span>
+                            </li>
+                            
+                            <li>
+                               <h6>Framework:</h6>
+                               <span>{{theme_data.framework}}</span>
+                            </li>
+                         </ul>
+                         <a href="{% url 'add_to_cart' id=theme_data.id %}" class="m-btn m-btn-2 w-100 mb-20"> <span></span> Add to cart</a>
+                         <a href="{{theme_data.template_url}}" target="_blank" class="m-btn m-btn-border w-100"> <span></span> Preview Project</a>
+                      </div>
+                   </div>
+                   <div class="sidebar__banner" data-background="{% static 'assets/img/about/about.jpg' %}">
+                      <h4 class="sidebar__banner-title">Check Out <br>Our free Templates</h4>
+                      <a href="product.html" class="m-btn m-btn-white"> <span></span> free template</a>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- product area end -->
+
+
+    <!-- subscribe area start -->
+    <section class="subscribe__area p-relative pt-100 pb-110" data-background="{% static 'assets/img/bg/subscribe-bg.jpg' %}">
+       <div class="subscribe__icon">
+          <img class="ps" src="{% static 'assets/img/icon/subscribe/ps.png' %}" alt="spellsoft">
+          <img class="wp" src="{% static 'assets/img/icon/subscribe/wp.png' %}" alt="spellsoft">
+          <img class="html" src="{% static 'assets/img/icon/subscribe/html.png' %}" alt="spellsoft">
+          <img class="f" src="{% static 'assets/img/icon/subscribe/f.png' %}" alt="spellsoft">
+          <img class="man" src="{% static 'assets/img/icon/subscribe/man.png' %}" alt="spellsoft">
+       </div>
+       <div class="container">
+          <div class="row">
+             <div class="col-xxl-12">
+                <div class="subscribe__content text-center wow fadeInUp" data-wow-delay=".3s">
+                   <h3 class="subscribe__title">Have a project? <br> Create your website now.</h3>
+                   <p>Try our any product for FREE!</p>
+                   <div class="subscribe__form wow fadeInUp" data-wow-delay=".5s">
+                      <form action="#">
+                         <input type="email" placeholder="Email Address">
+                         <button type="submit" class="m-btn m-btn-black"><span></span> subscribe </button>
+                      </form>
+                      <p>Join 20,000+ other creators in our Markit community.</p>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- subscribe area end --> 
+ </main>
+{% include 'footer.html' %}

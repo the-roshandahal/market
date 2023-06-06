@@ -1,0 +1,75 @@
+{% load static %}
+{% include 'admin/nav.html' %}
+<div class="main-panel">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Category</h4>
+       <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th> Icon</th>
+                  <th> Category Name</th>
+                  <th> Status </th>
+                  <th> Order</th>
+                  <th>Date Added</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category in category %}
+                <tr>
+                  <td class="py-1">
+                    <img src="{{category.category_image.url}}" alt="image" />
+
+                  </td>
+                  <td>{{category.category}} </td>
+                  <td>
+                    {% if category.status == 'active' %}
+                    <label class="badge badge-gradient-success">Active</label>
+                    {% else %}
+                    <label class="badge badge-gradient-danger">Inactive</label>
+                    {% endif %}
+                  </td>
+                  <td> {{category.order}}</td>
+                  <td>{{category.created.date}}</td>
+
+
+
+
+
+                  <td>
+                    <div class="nav-item nav-profile dropdown">
+                      <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <i class="mdi mdi-table-edit"></i>
+                      </a>
+                      <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                          <a class="dropdown-item" href="{% url 'edit_category' id=category.id %}">
+                              <i class="mdi mdi-table-edit me-2 text-success"></i> Edit Details </a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="{% url 'change_cat_status' id=category.id %}">
+                            <i class="mdi mdi-table-edit me-2 text-success"></i> Change Status </a>
+                        <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="{% url 'delete_category' id=category.id %}">
+                              <i class="mdi mdi-logout me-2 text-primary"></i> Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          </div>
+        </div>
+      </div>
+      <span class="nav-link">
+        <a href="{% url 'add_category' %}">
+        <button class="btn btn-block btn-lg btn-gradient-primary mt-4">+ Add Category</button>
+    </a>
+    </span>
+</div>
+
+{% include 'admin/footer.html' %}s

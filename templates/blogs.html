@@ -1,0 +1,82 @@
+{% load static %}
+{% include 'nav.html' %}
+{% include 'meta/blogs_meta.html' %}
+{% include 'header.html' %}
+<main>
+  <!-- bg shape area start -->
+  <div class="bg-shape">
+    <img src="{% static 'assets/img/shape/shape-1.png' %}" alt="spellsoft" />
+  </div>
+  <!-- bg shape area end -->
+
+  <!-- page title area -->
+  <section class="page__title-area pt-85">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="hero__content">
+            <h1 class="hero__title">
+              <span>Explore our<br></span>
+              Latest blogs.
+            </h1>
+            <h2 class="about__sub-title">Stay Updated with Our Latest Blogs</h2>
+            <p>
+              Dive into our dynamic collection of the latest blog posts. We bring you a curated selection of articles covering a wide range of topics, 
+              including web design trends, development tips, and industry news.Stay updated with the latest trends, gain new perspectives, and learn best practices to 
+              enhance your online presence. Immerse yourself in our ever-growing collection of engaging and thought-provoking blog posts, designed to empower and educate
+               our community.
+                
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- page title end -->
+
+  <!-- postbox area start -->
+  <section class="postbox__area pb-120">
+    <div class="container">
+      <div class="row">
+        {% for blog_data in blog_data %}
+        <div class="col-xxl-4 col-xl-4 col-lg-4">
+          <div class="postbox__wrapper">
+            <article class="postbox__item format-image fix mb-50 wow fadeInUp" data-wow-delay=".2s" >
+                <div class="postbox__thumb">
+                  <a href="{% url 'blogdetails' id=blog_data.id %}" class="w-img">
+                    <img src="{{blog_data.image.url}}" alt="spellsoft" />
+                  </a>
+                </div>
+                <div class="postbox__content">
+                  <div class="postbox__meta d-flex mb-10">
+                    
+                    <div class="postbox__date">
+                      <span><i class="fal fa-clock"></i>{{blog_data.created.date}}</span>
+                    </div>
+                  </div>
+                  <h3 class="postbox__title mb-15">
+                  <a href="{% url 'blogdetails' id=blog_data.id %}"
+                      >{{blog_data.title}}</a
+                    > 
+                  </h3>
+                  <!--<div class="postbox__text mb-20">-->
+                  
+                  <!--    {{blog_data.blog|truncatechars:250|safe}}-->
+                  
+                  <!--</div>-->
+                  <div class="postbox__author d-flex align-items-center">
+                    <h5>Post by <a href="#">Spell Innovation</a></h5>
+                  </div>
+                </div>
+            </article>
+          </div>
+        </div>
+        {% endfor %}
+        
+      </div>
+    </div>
+  </section>
+  <!-- postbox area end -->
+</main>
+{% include 'footer.html' %}

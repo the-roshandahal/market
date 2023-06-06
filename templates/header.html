@@ -1,0 +1,272 @@
+{% load static %} 
+<!-- header area start -->
+{% for message in messages %}
+<div class="popup-msg">
+  <p class="popup-msg-text">{{message}}</p>
+</div>
+{% endfor %}
+<style>
+  .popup-msg {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    transform: translateX(-50%);
+    z-index: 1000;
+    top: 5%;
+    right: -3%;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: 1.3px solid gray;
+    color: rgb(255, 255, 255);
+    background-color: rgb(228, 228, 228);
+    box-shadow: 3px 4px 12px 0px rgba(0, 0, 0, 0.3);
+  }
+  .popup-msg-text {
+    padding: 7px 5px 0px 5px;
+  }
+</style>
+
+<script>
+  let popup = document.querySelector(".popup-msg");
+  if (popup) {
+    setTimeout(() => {
+      popup.style.display = "none";
+    }, 3000);
+  }
+</script>
+
+<header>
+  <div class="header__area white-bg" id="header-sticky">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-4 col-6">
+          <div class="logo">
+            <a href="{% url 'home' %}">
+              <img src="{% static 'assets/img/logo/logo.png' %}" alt="logo" />
+            </a>
+          </div>
+        </div>
+        <div class="col-xxl-8 col-xl-8 col-lg-8 d-none d-lg-block">
+          <div class="main-menu">
+            <nav id="mobile-menu">
+              <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+
+                <li><a href="{% url 'theme' %}">Themes</a></li>
+
+                <li><a href="{% url 'about' %}">About</a></li>
+
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                 <li class="hidden d-lg-none">
+                  <a href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+                 <li class="hidden d-lg-none">
+                  <a href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <!--<li class="hidden d-lg-none">-->
+                <!--  <a href="profile__url">View Profile</a>-->
+                <!--</li>-->
+                <li class="hidden d-lg-none">
+                  <a href="{% url 'cart' %}">View cart</a>
+                </li>
+                <li class="hidden d-lg-none">
+                  <a href="{% url 'purchasesummary' %}"
+                    >View Purchase summary</a
+                  >
+                </li>
+                <li class="hidden d-lg-none">
+                  <a href="{% url 'purchasedtemplates' %}"
+                    >View purchased Templates</a
+                  >
+                </li>
+                <li class="hidden d-lg-none">
+                  <a href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% endif %}
+                {% else %}
+                <li class="hidden d-lg-none">
+                  <a href="{% url 'login' %}">Login</a>
+                </li>
+                {% endif %}
+              </ul>
+            </nav>
+          </div>
+        </div>
+        {% if user.is_authenticated %} 
+        {% if user.is_staff %}
+        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-8 col-6">
+          <div class="header__action d-flex align-items-center justify-content-end" >
+            <div class="header__login d-none d-lg-block">
+              <a href="{% url 'logout' %}"><i class="far fa-unlock d-sm-none d-none d-xl-inline"></i> Logout</a>
+            </div>
+            <div class="header__cart d-none d-lg-block">
+              <a href="{% url 'dashboard' %}" >
+                <i class="far fa-home"></i>
+              </a>
+            </div>
+            <div class="sidebar__menu d-lg-none">
+              <div class="sidebar-toggle-btn" id="sidebar-toggle">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-8 col-6">
+          <div
+            class="header__action d-flex align-items-center justify-content-end"
+          >
+            <div class="header__cart d-none d-lg-block">
+              <a href="javascript:void(0);" class="cart-toggle-btn">
+                <i class="far fa-user"></i>
+              </a>
+            </div>
+
+            <div class="sidebar__menu d-lg-none">
+              <div class="sidebar-toggle-btn" id="sidebar-toggle">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %} {% else %}
+        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-8 col-6">
+          <div
+            class="header__action d-flex align-items-center justify-content-end"
+          >
+            <div class="header__login d-none d-sm-block">
+              <a href="{% url 'login' %}"
+                ><i class="far fa-unlock"></i> Log In</a
+              >
+            </div>
+            <div class="sidebar__menu d-lg-none">
+              <div class="sidebar-toggle-btn" id="sidebar-toggle">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>
+<!-- header area end -->
+
+<!-- pre loader area start -->
+<div id="loading">
+  <div id="loading-center">
+    <div id="loading-center-absolute">
+      <div class="object" id="object_one"></div>
+      <div class="object" id="object_two" style="left: 20px"></div>
+      <div class="object" id="object_three" style="left: 40px"></div>
+      <div class="object" id="object_four" style="left: 60px"></div>
+      <div class="object" id="object_five" style="left: 80px"></div>
+    </div>
+  </div>
+</div>
+<!-- pre loader area end -->
+
+<!-- back to top start -->
+<div class="progress-wrap">
+  <svg
+    class="progress-circle svg-content"
+    width="100%"
+    height="100%"
+    viewBox="-1 -1 102 102"
+  >
+    <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+  </svg>
+</div>
+<!-- back to top end -->
+
+<div class="cartmini__area">
+  <div class="cartmini__wrapper">
+    <div class="cartmini__title">
+      <h4>Profile</h4>
+    </div>
+    <div class="cartmini__close">
+      <button type="button" class="cartmini__close-btn">
+        <i class="fal fa-times"></i>
+      </button>
+    </div>
+    <div class="cartmini__widget">
+      <div class="cartmini__inner">
+        <ul>
+          <!--<li>-->
+          <!--  <div class="cartmini__content">-->
+          <!--    <h5><a href="profile__url">View Profile</a></h5>-->
+          <!--  </div>-->
+          <!--</li>-->
+          <li>
+            <div class="cartmini__content">
+              <h5><a href="{% url 'cart' %}">View cart</a></h5>
+            </div>
+          </li>
+          <li>
+            <div class="cartmini__content">
+              <h5>
+                <a href="{% url 'purchasesummary' %}">View Purchase summary</a>
+              </h5>
+            </div>
+          </li>
+          <li>
+            <div class="cartmini__content">
+              <h5>
+                <a href="{% url 'purchasedtemplates' %}"
+                  >View purchased Templates</a
+                >
+              </h5>
+            </div>
+          </li>
+          <li>
+            <div class="cartmini__content">
+              <h5><a href="{% url 'logout' %}">Logout</a></h5>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="body-overlay"></div>
+
+<!-- sidebar area start -->
+<div class="sidebar__area">
+  <div class="sidebar__wrapper">
+    <div class="sidebar__close">
+      <button class="sidebar__close-btn" id="sidebar__close-btn">
+        <span><i class="fal fa-times"></i></span>
+        <span>close</span>
+      </button>
+    </div>
+    <div class="sidebar__content">
+      <div class="logo mb-40">
+        <a href="index.html">
+          <img src="{% static 'assets/img/logo/logo-white.png' %}" alt="logo" />
+        </a>
+      </div>
+      <div class="mobile-menu">
+        <nav id="mobile-menu">
+          <ul></ul>
+        </nav>
+      </div>
+
+   
+    </div>
+  </div>
+</div>
+<!-- sidebar area end -->
+<div class="body-overlay"></div>
+<!-- sidebar area end -->

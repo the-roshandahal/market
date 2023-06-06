@@ -1,0 +1,253 @@
+{% load static %} {% include 'admin/nav.html' %}
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Add Templates</h4>
+            <p class="card-description">Describe Templates</p>
+            <form
+              class="forms-sample"
+              ction="{% url 'add_template' %}"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              {% csrf_token %}
+
+              <!-- category -->
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Category</label>
+                <div class="col-sm-9">
+                  <select
+                    class="form-control"
+                    name="category"
+                    id="catageory_select"
+                    data-sub-category-url="{% url 'load_sub_category' %}"
+                  >
+                    <option value="">--Select--</option>
+                    {% for cat in cat %}
+
+                    <option value="{{cat.id}}" {% if cat.id == template_data.category.id %} selected {% endif %}>{{cat.category}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+              <script>
+                $("#catageory_select").change(function () {
+                  var url = $("#catageory_select").attr(
+                    "data-sub-category-url"
+                  );
+                  var cat = $(this).val();
+                  $.ajax({
+                    url: url,
+                    data: {
+                      cat: cat,
+                    },
+                    success: function (data) {
+                      $("#id_sub_category").html(data);
+                    },
+                  });
+                  //https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html
+                });
+              </script>
+
+              <!-- sub category  -->
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Sub Category</label>
+                <div class="col-sm-9">
+                  <select
+                    class="form-control"
+                    name="sub_category"
+                    id="id_sub_category"
+                    data-child-category-url="{% url 'load_child_category' %}"
+                  >
+                    <option value="">--Select--</option>
+                    {% for sub_cat in sub_cat %}
+                    <option value="{{sub_cat.id}}" {% if sub_cat.id == template_data.sub_category.id %} selected {% endif %}>
+                      {{sub_cat.sub_category}}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <script>
+                $("#id_sub_category").change(function () {
+                  var url = $("#id_sub_category").attr(
+                    "data-child-category-url"
+                  );
+                  var sub_cat = $(this).val();
+                  $.ajax({
+                    url: url,
+                    data: {
+                      sub_cat: sub_cat,
+                    },
+                    success: function (data) {
+                      $("#id_child_category").html(data);
+                    },
+                  });
+                  //https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html
+                });
+              </script>
+
+              <!-- child category -->
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Child Category</label>
+                <div class="col-sm-9">
+                  <select
+                    class="form-control"
+                    name="child_category"
+                    id="id_child_category"
+                  >
+                    <option value="">--Select--</option>
+                    {% for child_cat in child_cat %}
+                    <option value="{{child_cat.id}}" {% if child_cat.id == template_data.child_category.id %} selected {% endif %}>
+                      {{child_cat.child_category}}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Template Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="{{template_data.template_name}}"
+                  value="{{template_data.template_name}}"
+                  required
+                  name="template_name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Template Details</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{template_data.template_details}}"
+                  value="{{template_data.template_details}}"
+                  required
+                  name="template_details"
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputConfirmPassword1"
+                  >Template Features</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputConfirmPassword1"
+                  placeholder="{{template_data.template_features}}"
+                  value="{{template_data.template_features}}"
+                  required
+                  name="template_features"
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Template Layout</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{template_data.template_layout}}"
+                  value="{{template_data.template_layout}}"
+                  required
+                  name="template_layout"
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Template Price</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="{{template_data.template_price}}"
+                  value="{{template_data.template_price}}"
+                  required
+                  name="template_price"
+                />
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Is is_taxable</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="is_taxable" id ="id_child_category">
+                    <option value="yes">yes</option>
+                    <option value="no">no</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Template Version</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{template_data.version}}"
+                  value="{{template_data.version}}"
+                  required
+                  name="version"
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Frameworks Used</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{template_data.framework}}"
+                  value="{{template_data.framework}}"
+                  required
+                  name="framework"
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Template URL</label>
+                <input
+                  type="url"
+                  class="form-control"
+                  placeholder="{{template_data.template_url}}"
+                  value="{{template_data.template_url}}"
+                  required
+                  name="template_url"
+                />
+              </div>
+              <div class="form-group">
+                <label>Template Image</label>
+                <div class="input-group col-xs-12">
+                  <input
+                    type="file"
+                    class="form-control file-upload-info"
+                    placeholder="Upload Image"
+                    name="template_image"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Template File</label>
+                <div class="input-group col-xs-12">
+                  <input
+                    type="file"
+                    class="form-control file-upload-info"
+                    placeholder="Upload Image"
+                    name="template_file"
+
+                  />
+                </div>
+              </div>
+
+              
+              <button type="submit" class="btn btn-gradient-primary me-2">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'admin/footer.html' %}
