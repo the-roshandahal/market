@@ -115,7 +115,7 @@ class Snippet(models.Model):
     
     themes_meta_title = models.CharField(max_length=255)    
     themes_meta_description = models.TextField()    
-    themes_meta_keywords = models.TextField()    
+    themes_meta_keywords = models.TextField()
 
     def __str__(self):
         return self.data_set
