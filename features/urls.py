@@ -40,6 +40,7 @@ urlpatterns = [
     path('termsandcondition/', views.termsandcondition, name='termsandcondition'),
     path("khalti-verify/", views.KhaltiVerifyView.as_view(), name="khaltiverify"),
 
+    path('free/', views.free, name='free'),
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
 

@@ -447,7 +447,7 @@ def download_count(request, id, di):
     next = request.GET.get("next", "/")
     ddd = PurchasedTemplate.objects.get(id=id)
     print(ddd.download_count)
-    if ddd.download_count <= 1:
+    if ddd.download_count <= 2:
         try:
             template = PurchasedTemplate.objects.get(id=id)
             # url = template.temlate_url
@@ -521,6 +521,31 @@ class KhaltiVerifyView(View):
 
         data = {"success": success}
         return JsonResponse(data)
+
+def free(request):
+    if request.method == "POST":
+        messages.info(request, "POST")
+
+        cart = Cart.objects.filter(user=request.user)
+        amount = request.POST["amount"]
+        discount = request.POST["discount"]
+        payment_method = request.POST["payment_method"]
+        order = request.POST["order_id"]
+        total_amount=int(amount) / 100
+        temp_summary = PurchaseSummary(user=request.user,order_id=order,discount=discount,payment_method=payment_method,total_amount=total_amount)
+        temp_summary.save()
+
+        for cart in cart:
+            temp = PurchasedTemplate(user=request.user, template=cart.template, order_id=order,purchase_summary_id=temp_summary.id)
+            temp.save()
+            
+        cart.delete()
+        return redirect('purchasedtemplates')
+    else:
+        messages.info(request, "Normal")
+        return redirect('checkout')
+
+
 
 
 

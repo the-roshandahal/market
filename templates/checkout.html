@@ -90,66 +90,31 @@
           </tbody>
         </table>
       </div>
-      <div class="d-flex w-auto">
-        <div class="x-4 my-3">
-          <span id="payment-button" class="m-btn m-btn-2">
-            Pay with khalti
-          </span>
-        </div>
-        <div class="px-4 my-3">
-          <a href="{% url 'cart' %}" class="m-btn m-btn-2"> Back to Cart</a>
-        </div>
-        <script>
-          var config = {
-            // replace the publicKey with yours
-            publicKey: "test_public_key_4b2b30a8959c417e950fb359ad9def98",
-            productIdentity: "order_{% for cart in carts %}{{cart.id}}{% endfor %}",
-            productName: "Tempelates",
-            productUrl: "http://spellsoft.com/",
-            paymentPreference: [
-              "KHALTI",
-              "EBANKING",
-              "MOBILE_BANKING",
-              "CONNECT_IPS",
-              "SCT",
-            ],
-            eventHandler: {
-              onSuccess(payload) {
-                // hit merchant api for initiating verfication
-                console.log(payload)
-
-                axios.get("{% url 'khaltiverify' %}" , {params:{
-                    "token": payload.token,
-                    "amount": payload.amount,
-                    order_id:"{% for cart in carts %}{{cart.id}}{% endfor %}--{{request.user.id}}",
-                    discount:"{{discount_amt}}",
-                    user:"{{request.user.id}}"
-                }
-                }).then(function(resp){
-                  if (resp.data.success == true){
-                      alert("Thanks. Payment Completed Successfully")
-                      location.href = "{% url 'purchasesummary' %}"
-                  }else{
-                      alert("Payment not sucessfull")
-                      location.href = "{{request.build_absolute_uri}}"
-                  }
-              })
-              },
-              onError(error) {
-                console.log(error,"Error occured");
-              },
-              onClose() {
-                console.log("widget is closing");
-              },
-            },
-          };
-
-          var checkout = new KhaltiCheckout(config);
-          var btn = document.getElementById("payment-button");
-          btn.onclick = function () {
-            checkout.show({ amount: {{grand_total}} *100 });
-          };
-        </script>
+        <form action="{% url 'free' %}" method="POST">
+          {% csrf_token %}
+          <div style="display:none;">
+            
+            <input type="text" name ="amount" value="{{grand_total}}">
+            <input type="text" name ="discount" value="{{discount_amt}}">
+            <input type="text" name ="payment_method" value="other">
+            <input type="text" name ="order_id" value="{% for cart in carts %}{{cart.id}}{% endfor %}-{{request.user.id}}">
+          </div>
+          <div class="d-flex w-auto">
+            <div class="my-3 px-1 ">
+              <button class="m-btn m-btn-2" type="submit">Get For Free</button>
+            </div>
+            <div class="x-4 my-3">
+              <span id="payment-button" class="m-btn m-btn-2">
+                Pay with khalti
+              </span>
+            </div>
+          
+            <div class="px-1 my-3">
+              <a href="{% url 'cart' %}" class="m-btn m-btn-2"> Back to Cart</a>
+            </div>
+          </div>
+        </form>
+      
       </div>
     </section>
     <style>
@@ -160,6 +125,69 @@
         min-width: 900px;
       }
     </style>
-    {% include 'footer.html' %}
   </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    var config = {
+      // replace the publicKey with yours
+      publicKey: "test_public_key_4b2b30a8959c417e950fb359ad9def98",
+      productIdentity: "order_{% for cart in carts %}{{cart.id}}{% endfor %}",
+      productName: "Tempelates",
+      productUrl: "http://spellsoft.com/",
+      paymentPreference: [
+        "KHALTI",
+        "EBANKING",
+        "MOBILE_BANKING",
+        "CONNECT_IPS",
+        "SCT",
+      ],
+      eventHandler: {
+        onSuccess(payload) {
+          // hit merchant api for initiating verfication
+          console.log(payload)
+
+          axios.get("{% url 'khaltiverify' %}" , {params:{
+              "token": payload.token,
+              "amount": payload.amount,
+              order_id:"{% for cart in carts %}{{cart.id}}{% endfor %}--{{request.user.id}}",
+              discount:"{{discount_amt}}",
+              user:"{{request.user.id}}"
+          }
+          }).then(function(resp){
+            if (resp.data.success == true){
+                alert("Thanks. Payment Completed Successfully")
+                location.href = "{% url 'purchasesummary' %}"
+            }else{
+                alert("Payment not sucessfull")
+                location.href = "{{request.build_absolute_uri}}"
+            }
+        })
+        },
+        onError(error) {
+          console.log(error,"Error occured");
+        },
+        onClose() {
+          console.log("widget is closing");
+        },
+      },
+    };
+
+    var checkout = new KhaltiCheckout(config);
+    var btn = document.getElementById("payment-button");
+    btn.onclick = function () {
+      checkout.show({ amount: {{grand_total}} *100 });
+    };
+  </script> 
+
+  {% include 'footer.html' %}

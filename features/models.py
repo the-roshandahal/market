@@ -42,11 +42,11 @@ class Cart(models.Model):
 
 class PurchaseSummary(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    order_id = models.CharField(max_length=100, unique=True)
+    order_id = models.CharField(max_length=100)
     discount = models.IntegerField(
         validators=[MaxValueValidator(10000000), MinValueValidator(10)]
     )
-    total_amount = models.IntegerField(
+    total_amount = models.FloatField(
         validators=[MaxValueValidator(10000000), MinValueValidator(10)]
     )
 
@@ -62,7 +62,7 @@ class PurchasedTemplate(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     template = models.ForeignKey(Template, on_delete=models.CASCADE)
     order_id = models.CharField(max_length=100)
-    download_count = models.IntegerField()
+    download_count = models.IntegerField(default=0)
     purchase_summary = models.ForeignKey(PurchaseSummary,on_delete=models.CASCADE)
 
     def __str__(self):
