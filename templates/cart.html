@@ -23,7 +23,7 @@
           {% for carts in carts %}
           <li>
             <div class="cartmini__thumb">
-              <a href="{% url 'theme_details' id=carts.template.id %}">
+              <a href="{% url 'themedetails' id=carts.template.id %}">
                 <img src="{{carts.template.template_image.url}}" alt="spellsoft" />
               </a>
             </div>

@@ -128,7 +128,7 @@
                 }).then(function(resp){
                   if (resp.data.success == true){
                       alert("Thanks. Payment Completed Successfully")
-                      location.href = "{% url 'purchase_summary' %}"
+                      location.href = "{% url 'purchasesummary' %}"
                   }else{
                       alert("Payment not sucessfull")
                       location.href = "{{request.build_absolute_uri}}"
