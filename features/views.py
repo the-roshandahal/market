@@ -206,7 +206,7 @@ def theme(request):
             cart_num = Cart.objects.filter(user=request.user).count()
             
 
-    paginator = Paginator(template, 4)
+    paginator = Paginator(template, 6)
     page = request.GET.get("page")
     template = paginator.get_page(page)
     context = {
