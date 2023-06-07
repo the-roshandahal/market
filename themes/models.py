@@ -58,9 +58,7 @@ class Template(models.Model):
     is_taxable = models.CharField(max_length=20, choices=TAX_CHOICES, default="yes")
     version = models.CharField(max_length=100)
     framework = models.CharField(max_length=1000)
-    template_image = models.ImageField(
-        null=True, blank=True, upload_to="template_images/"
-    )
+    template_image = models.ImageField(upload_to="template_images/")
     template_url = models.URLField(null=True, blank=True)
     template_file = models.FileField(null=True, blank=True, upload_to="template_files/")
     is_featured = models.BooleanField(null=True, default=0)

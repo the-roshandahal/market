@@ -34,7 +34,7 @@
                    <h1 class="about__title">{{theme_data.template_name}}</h1>
                 <div class="product__wrapper">
                    <div class="product__details-thumb w-img mb-30">
-                      <img src="{{theme_data.template_image.url}}" alt="product-details">
+                      <img src="{% if theme_data.template_image %}{{theme_data.template_image.url}}{% endif %}" alt="product-details">
                    </div>
                    <div class="product__details-content">
                       <div class="product__tab mb-40">
@@ -170,10 +170,10 @@
                          <a href="{{theme_data.template_url}}" target="_blank" class="m-btn m-btn-border w-100"> <span></span> Preview Project</a>
                       </div>
                    </div>
-                   <div class="sidebar__banner" data-background="{% static 'assets/img/about/about.jpg' %}">
+                   {% comment %} <div class="sidebar__banner" data-background="{% static 'assets/img/about/about.jpg' %}">
                       <h4 class="sidebar__banner-title">Check Out <br>Our free Templates</h4>
                       <a href="product.html" class="m-btn m-btn-white"> <span></span> free template</a>
-                   </div>
+                   </div> {% endcomment %}
                 </div>
              </div>
           </div>

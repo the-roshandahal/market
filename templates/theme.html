@@ -109,7 +109,7 @@
                 <div class="product__thumb">
                   <div class="product__thumb-inner fix w-img">
                     <a href="{% url 'themedetails' id=template.id %}">
-                      <img src="{{template.template_image.url}}" alt="spellsoft" />
+                      <img src="{% if template.template_image %}{{template.template_image.url}}{% endif %}" alt="spellsoft" />
                     </a>
                   </div>
                   <div class="product__thumb-btn transition-3">
