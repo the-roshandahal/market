@@ -188,7 +188,7 @@
                   <div class="row">
                     <div class="col-12">
                       <a href="{% url 'themedetails' id=fet_temp.id %}">
-                        <img src="{{fet_temp.template_image.url}}" alt="spellsoft" class="img-fluid img-height" />
+                        <img src="{% if fet_temp.template_image %}{{fet_temp.template_image.url}}{% endif %}" alt="spellsoft" class="img-fluid img-height" />
                       </a>
                     </div>
                   </div>
