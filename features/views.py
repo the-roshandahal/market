@@ -319,7 +319,7 @@ def cart(request):
     carts = Cart.objects.filter(user=request.user)
     total = 0
     for cart in carts:
-        template = Template.objects.get(template_name=cart.template)
+        template = Template.objects.get(id=cart.template.id)
         total += template.template_price
     fet_temp = Template.objects.filter(is_featured=1)
     context = {"carts": carts, "total": total, "fet_temp": fet_temp}
